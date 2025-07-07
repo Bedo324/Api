@@ -5,10 +5,19 @@ import numpy as np
 import base64
 import io
 from PIL import Image
+import os
+import gdown
 
 app = Flask(__name__)
 
-model = YOLO("best.pt")
+MODEL_PATH = "best.pt"
+GOOGLE_DRIVE_URL = "https://drive.google.com/uc?id=1l3HTxznFXYaazFIBSwNeyuC1KCZVKeH-"
+
+if not os.path.exists(MODEL_PATH):
+    print("Downloading model...")
+    gdown.download(GOOGLE_DRIVE_URL, MODEL_PATH, quiet=False)
+
+model = YOLO(MODEL_PATH)
 
 def read_base64_image(base64_str):
     image_data = base64.b64decode(base64_str)
@@ -27,11 +36,8 @@ def predict():
         img_array = read_base64_image(image_base64)
         img_bgr = cv2.cvtColor(img_array, cv2.COLOR_RGB2BGR)
 
-        # تشغيل الموديل ورسم البوكسات
         results = model.predict(img_bgr, conf=0.5)
         result_img = results[0].plot()
-
-        # تحويل الصورة الناتجة إلى base64
         output_base64 = image_to_base64(result_img)
 
         return jsonify({"detected_image": output_base64})
