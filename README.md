@@ -16,8 +16,8 @@ A lightweight Flask API for running object detection using a YOLO model (from Ul
 
 ## 📁 Project Structure
 
-├── app.py # Main Flask API
-├── requirements.txt # Project dependencies
-├── Procfile # Railway process definition
-├── runtime.txt # Python version
-└── README.md # Project documentation
+- app.py # Main Flask API
+- requirements.txt # Project dependencies
+- Procfile # Railway process definition
+- runtime.txt # Python version
+- README.md # Project documentation
