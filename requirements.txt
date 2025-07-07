@@ -1,8 +1,6 @@
 flask
-ultralytics
+ultralytics==8.0.20
 opencv-python
 numpy
 pillow
-torch
-torchvision
 gdown
